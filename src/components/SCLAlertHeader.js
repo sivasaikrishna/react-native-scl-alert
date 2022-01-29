@@ -26,7 +26,7 @@ function SCLAlertHeader(props) {
         style={[
           styles.inner,
           { backgroundColor: variables[`${props.theme}Background`] },
-          props.headerInnerStyles,
+          props.headerInnerStyles
         ]}
       >
         {!props.headerIconComponent && (

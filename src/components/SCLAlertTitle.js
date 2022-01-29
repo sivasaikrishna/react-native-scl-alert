@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { View, ViewPropTypes, StyleSheet, Text } from 'react-native'
 import variables from '../config/variables'
+import { cleanText } from '../helpers/text'
 
 SCLAlertTitle.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   titleContainerStyle: ViewPropTypes.style,
   titleStyle: Text.propTypes.style
 }
@@ -15,12 +16,17 @@ SCLAlertTitle.defaultProps = {
 }
 
 function SCLAlertTitle(props) {
+  const title = cleanText(props.title)
   return (
-    <View style={[styles.container, props.titleContainerStyle]}>
-      <Text numberOfLines={1} style={[styles.text, props.titleStyle]}>
-        {props.title}
-      </Text>
-    </View>
+    <Fragment>
+      {!!title && (
+        <View style={[styles.container, props.titleContainerStyle]}>
+          <Text numberOfLines={2} ellipsizeMode="tail" style={[styles.text, props.titleStyle]}>
+            {title}
+          </Text>
+        </View>
+      )}
+    </Fragment>
   )
 }
 
