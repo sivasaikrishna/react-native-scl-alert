@@ -118,18 +118,19 @@ class SCLAlert extends React.Component {
       >
         <View style={styles.inner}>
           <TouchableWithoutFeedback onPress={this.handleOnClose}>
-            <View style={[styles.overlay, this.props.overlayStyle]} />
-          </TouchableWithoutFeedback>
-          <Animated.View
-            style={[styles.contentContainer, { transform: this.interpolationTranslate }]}
-          >
-            <View style={styles.innerContent}>
-              {showHeader && <SCLAlertHeader {...this.props} />}
-              <SCLAlertTitle {...this.props} />
-              <SCLAlertSubtitle {...this.props} />
-              <View style={styles.bodyContainer}>{this.props.children}</View>
+            <View style={[styles.overlay, this.props.overlayStyle]}>
+              <Animated.View
+                style={[styles.contentContainer, { transform: this.interpolationTranslate }]}
+              >
+                <View style={styles.innerContent}>
+                  {showHeader && <SCLAlertHeader {...this.props} />}
+                  <SCLAlertTitle {...this.props} />
+                  <SCLAlertSubtitle {...this.props} />
+                  <View style={styles.bodyContainer}>{this.props.children}</View>
+                </View>
+              </Animated.View>
             </View>
-          </Animated.View>
+          </TouchableWithoutFeedback>
         </View>
       </Modal>
     )
@@ -149,11 +150,9 @@ const styles = StyleSheet.create({
     zIndex: 100
   },
   contentContainer: {
-    flex: 1,
     zIndex: 150,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 50
+    alignItems: 'center'
   },
   innerContent: {
     padding: variables.gutter,
