@@ -20,7 +20,8 @@ class SCLAlert extends React.Component {
     onRequestClose: PropTypes.func.isRequired,
     slideAnimationDuration: PropTypes.number,
     overlayStyle: ViewPropTypes.style,
-    useNativeDriver: PropTypes.bool
+    useNativeDriver: PropTypes.bool,
+    showHeader: PropTypes.bool
   }
 
   static defaultProps = {
@@ -29,7 +30,8 @@ class SCLAlert extends React.Component {
     cancellable: true,
     slideAnimationDuration: 250,
     overlayStyle: {},
-    useNativeDriver: true
+    useNativeDriver: true,
+    showHeader: true
   }
 
   state = {
@@ -55,7 +57,7 @@ class SCLAlert extends React.Component {
   get interpolationTranslate() {
     const move = this.slideAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [height, height / -5]
+      outputRange: [height, 0]
     })
 
     return [{ translateY: move }]
@@ -106,6 +108,7 @@ class SCLAlert extends React.Component {
   }
 
   render() {
+    const { showHeader } = this.props
     return (
       <Modal
         transparent
@@ -120,8 +123,8 @@ class SCLAlert extends React.Component {
           <Animated.View
             style={[styles.contentContainer, { transform: this.interpolationTranslate }]}
           >
-            <SCLAlertHeader {...this.props} />
             <View style={styles.innerContent}>
+              {showHeader && <SCLAlertHeader {...this.props} />}
               <SCLAlertTitle {...this.props} />
               <SCLAlertSubtitle {...this.props} />
               <View style={styles.bodyContainer}>{this.props.children}</View>
@@ -146,21 +149,19 @@ const styles = StyleSheet.create({
     zIndex: 100
   },
   contentContainer: {
+    flex: 1,
     zIndex: 150,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 50,
-    position: 'relative'
+    padding: 50
   },
   innerContent: {
     padding: variables.gutter,
-    paddingTop: variables.gutter * 4,
     borderRadius: variables.baseBorderRadius,
     backgroundColor: variables.baseBackgroundColor,
     width: variables.contentWidth
   },
   bodyContainer: {
-    marginTop: variables.gutter,
     justifyContent: 'flex-end'
   }
 })

@@ -40,10 +40,11 @@ function SCLAlertHeader(props) {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    position: 'relative',
     zIndex: 150,
-    top: 0,
-    left: variables.contentWidth / 2 - variables.gutter / 2,
+    top: -variables.gutter * 4,
+    marginBottom: -variables.gutter * 4,
+    alignSelf: 'center',
     borderRadius: variables.headerCircleSize,
     backgroundColor: variables.white,
     padding: 4
